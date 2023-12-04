@@ -22,71 +22,135 @@
   </div>
 </div>
 <!-- Page content -->
-<div class="w3-content w3-padding-64 w3-margin-top" style="max-width:1564px">
+<div class="content">
+  <h1>The Document Object</h1>
 
-<h1>The Document Object</h1>
+  <hr>
+  <h2>Just change A - Z</h2>
+  <p id="demo">Hi</p>
+
+  <hr>
+
+    <p>
+        <label for="inputText">ก่อนแปลง: </label>
+        <input type="text" id="inputText">
+        <button onclick="showModifiedString()">แปลง</button>
+      </p>
+      <p>หลังแปลง = <span id="modifiedString" class="output-box"></span></p>
+  <hr>
+  <h2>Calculate number</h2>
+  <input id="numb">
+  <button type="button" onclick="myFunction2()">Submit</button>
+  <p id="demo3"></p>
+
+  <p>ยอดซื้อขาย: <span id="totalSales">500</span> บาท</p>
+<p>จำนวนแต้มที่ได้: <span id="loyaltyPoints"></span> แต้ม</p>
+
+<button onclick="updatePoints()">คำนวณแต้ม</button>
 
 <hr>
-<h2>Just change A - Z</h2>
-<p id="demo">Hi</p>
-
-<hr>
-<h2>Click to change</h2>
-<p id="demo2">Hi</p>
-<button onclick="myFunction()">Click me</button>
-
-<hr>
-<h2>Calculate number</h2>
-<input id="numb">
-<button type="button" onclick="myFunction2()">Submit</button>
-<p id="demo3"></p>
-
-<!-- End page content -->
+<button onclick="calculate()">คำนวณความยาว</button>
+<p id="result"></p>
+  <!-- End page content -->
 </div>
+
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-</footer>
+
 
 <script>
-  //document.getElementById("demo").innerHTML = "Hello World";
-
   function printAlphabets() {
+    const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    alphabets.split('').forEach((alphabet, index) => {
+      setTimeout(() => {
+        document.getElementById("demo").innerHTML = alphabet;
+      }, index * 1000);
+    });
+  }
   printAlphabets();
-  
-  // สร้างตัวแปรเพื่อเก็บตัวอักษร A-Z
-  const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-  // ใช้ forEach เพื่อวนลูปผ่านทุกตัวอักษร
-  alphabets.split('').forEach((alphabet, index) => {
-    // ใช้ setTimeout เพื่อกำหนดระยะเวลาการแสดงผล
-    setTimeout(() => {
-      document.getElementById("demo").innerHTML = alphabet;
-      console.log(alphabet);
-    }, index * 1000); // 1000 milliseconds = 1 วินาที
-  });
-}
-
 
   function myFunction() {
     document.getElementById("demo2").innerHTML = "Hello World";
- }
+  }
 
   function myFunction2() {
-  // Get the value of the input field with id="numb"
-  let x = document.getElementById("numb").value;
-  // If x is Not a Number or less than one or greater than 10
-  let text;
-  if (isNaN(x) || x < 1 || x > 10) {
-    text = "Input not valid";
-  } else {
-    text = "Input OK";
-  }
-  document.getElementById("demo3").innerHTML = text;
-}
 
+    let x = document.getElementById("numb").value;
+    let text;
+    if (isNaN(x) || x < 1 || x > 10) {
+      text = "Input not valid";
+    } else {
+      text = "Input OK";
+    }
+    document.getElementById("demo3").innerHTML = text;
+  }
+  function ucFirst(str) {
+    if (!str) return str;
+    const modifiedStr = str.charAt(0).toUpperCase() + str.slice(1);
+    return modifiedStr;
+  }
+
+  function ucFirst(str) {
+    if (!str) return str;
+    const modifiedStr = str.charAt(0).toUpperCase() + str.slice(1);
+    return modifiedStr;
+  }
+  function showModifiedString() {
+    const inputText = document.getElementById("inputText").value;
+    const modifiedString = ucFirst(inputText);
+
+    document.getElementById("modifiedString").innerText = modifiedString;
+  }
+
+  function calculateLoyaltyPoints(totalSales) {
+    let points = totalSales / 100;
+    points = Math.floor(points);
+    return points;
+  }
+
+  function updatePoints() {
+    const newTotalSales = prompt("กรุณากรอกยอดซื้อขายใหม่ (ในหน่วยบาท):");
+    const newPoints = calculateLoyaltyPoints(parseInt(newTotalSales));
+
+    if (!isNaN(newPoints)) {
+      document.getElementById("totalSales").innerText = newTotalSales;
+      document.getElementById("loyaltyPoints").innerText = newPoints;
+    } else {
+      alert("โปรดกรอกตัวเลขที่ถูกต้อง");
+    }
+  }
+  const totalSales = 360;
+  const loyaltyPoints = calculateLoyaltyPoints(totalSales);
+  document.getElementById("totalSales").innerText = totalSales;
+  document.getElementById("loyaltyPoints").innerText = loyaltyPoints;
+
+
+
+  function calculateCircleLength(radius) {
+    var PI = Math.PI;
+    var circleLength = PI * 2 * radius;
+    return circleLength;
+  }
+
+  function calculateCircleLength(radius) {
+    var PI = Math.PI;
+    var circleLength = PI * 2 * radius;
+    return circleLength;
+  }
+
+  function calculate() {
+    var radius = prompt("กรุณาใส่ค่ารัศมีของวงกลม:");
+
+    if (radius !== null && radius !== "") {
+      radius = parseInt(radius);
+
+      if (!isNaN(radius)) {
+        var length = calculateCircleLength(radius);
+        document.getElementById("result").innerText = "ความยาวเส้นรอบวงของวงกลมที่มีรัศมี " + radius + " คือ " + length;
+      } else {
+        alert("โปรดกรอกรัศมีของวงกลมให้ถูกต้อง");
+      }
+    }
+  }
 
 </script>
-
-</body>
-</html>
